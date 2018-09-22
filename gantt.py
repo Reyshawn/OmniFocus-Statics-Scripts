@@ -8,10 +8,8 @@ from task import tasks
 from matplotlib.font_manager import FontProperties
 font = FontProperties(fname='/System/Library/Fonts/Hiragino Sans GB.ttc')
 
-# define the global value, colors, months 
-COLORS = ['orange', 'gold', 'coral', 'c', 'deeppink', 'darkcyan', 'deepskyblue']
+# define the global value
 MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-
 CONTEXTS2COLOR = {'Draft': 'silver', 
                   'iOS': 'deeppink', 
                   'Mac': 'orange', 
@@ -38,6 +36,7 @@ def get_dailytasks(day, tasks=tasks):
         daily_tasks.append(tasks[i])
         i += 1
     return daily_tasks
+
 
 def get_context(day):
     daily_tasks = get_dailytasks(day)
@@ -88,7 +87,7 @@ def draw_gantt(day):
     bar_size = 5
   
     for i, title in enumerate(dict_gantt):
-        ax.broken_barh(dict_gantt[title], (10 * (i + 1), bar_size), color=COLORS[i%7])
+        ax.broken_barh(dict_gantt[title], (10 * (i + 1), bar_size), color=CONTEXTS2COLOR[context[title]])
         ax.text(dict_gantt[title][0][0], 10 * i + 16, title, ha='left', fontproperties=font,fontsize=6)
 
     ax.xaxis.set_major_locator(mdates.HourLocator(byhour=range(0, 24, 3)))
@@ -146,6 +145,7 @@ def draw_dailybar(range_days):
 
     plt.show()
 
+
 if __name__ == '__main__':
-    # draw_gantt('2018.9.21')
-    draw_dailybar('2018.9.21 - 2018.6.1')
+    # draw_gantt('2018.7.16')
+    draw_dailybar('2018.9.22 - 2018.6.1')

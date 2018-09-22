@@ -12,6 +12,14 @@ font = FontProperties(fname='/System/Library/Fonts/Hiragino Sans GB.ttc')
 COLORS = ['orange', 'gold', 'coral', 'c', 'deeppink', 'darkcyan', 'deepskyblue']
 MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
+CONTEXTS2COLOR = {'Draft': 'deepskyblue', 
+                  'iOS': 'deeppink', 
+                  'Mac': 'orange', 
+                  'Windows': 'orange',
+                  'Safari': 'crimson', 
+                  'Python': 'c', 'JavaScript': 'c', 'Java': 'c', 'C++': 'c', 
+                  'Chores':'gold','Errands':'gold','Finance':'gold','Email':'gold'}
+
 def get_dailytasks(day, tasks=tasks):
     # choose a day to display the gantt chart of your activities in omnifocus
     # check if the type of day is string or datetime object 
@@ -30,6 +38,13 @@ def get_dailytasks(day, tasks=tasks):
         daily_tasks.append(tasks[i])
         i += 1
     return daily_tasks
+
+def get_context(day):
+    daily_tasks = get_dailytasks(day)
+    context = {}
+    for i in range(len(daily_tasks)):
+        context[daily_tasks[i].title] = daily_tasks[i].context
+    return context
 
 
 def get_dict(day, onedate=False):
@@ -66,12 +81,12 @@ def get_dict(day, onedate=False):
 
 def draw_gantt(day): 
     dict_gantt = get_dict(day, onedate=False)
-
+    context = get_context(day)
     fig, ax = plt.subplots()
     
     n = len(dict_gantt)
     bar_size = 5
-
+  
     for i, title in enumerate(dict_gantt):
         ax.broken_barh(dict_gantt[title], (10 * (i + 1), bar_size), color=COLORS[i%7])
         ax.text(dict_gantt[title][0][0], 10 * i + 16, title, ha='left', fontproperties=font,fontsize=6)
@@ -109,8 +124,9 @@ def draw_dailybar(range_days):
         if d.day == 1:
             ticks[k] = MONTHS[d.month-1]
         dict_gantt = get_dict(d, onedate=True)
+        context = get_context(d)
         for i, title in enumerate(dict_gantt):
-            ax.broken_barh(dict_gantt[title], (k, 1), color=COLORS[i%7])
+            ax.broken_barh(dict_gantt[title], (k, 1), color=CONTEXTS2COLOR[context[title]])
         k += 1
         d -= timedelta(days=1)
 
@@ -131,5 +147,5 @@ def draw_dailybar(range_days):
     plt.show()
 
 if __name__ == '__main__':
-    draw_gantt('2018.9.21')
-    # draw_dailybar('2018.9.21 - 2018.6.1')
+    # draw_gantt('2018.9.21')
+    draw_dailybar('2018.9.21 - 2018.6.1')

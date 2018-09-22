@@ -12,7 +12,7 @@ font = FontProperties(fname='/System/Library/Fonts/Hiragino Sans GB.ttc')
 COLORS = ['orange', 'gold', 'coral', 'c', 'deeppink', 'darkcyan', 'deepskyblue']
 MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-CONTEXTS2COLOR = {'Draft': 'deepskyblue', 
+CONTEXTS2COLOR = {'Draft': 'silver', 
                   'iOS': 'deeppink', 
                   'Mac': 'orange', 
                   'Windows': 'orange',

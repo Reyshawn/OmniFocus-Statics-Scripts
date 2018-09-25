@@ -52,7 +52,7 @@ def get_dict(day, onedate=False):
 
     # convert the datetime object to numeric number
     for i in range(len(daily_tasks)):
-        if len(daily_tasks[i].time) > 1:
+        if len(daily_tasks[i].duration) > 1:
             if onedate:
                 daily_tasks[i].time = [datetime.combine(datetime(2018,1,1).date(),t.time())for t in daily_tasks[i].time]
             dict_gantt[daily_tasks[i].title] = [mdates.date2num(t) for t in daily_tasks[i].time]
@@ -147,5 +147,5 @@ def draw_dailybar(range_days):
 
 
 if __name__ == '__main__':
-    # draw_gantt('2018.7.16')
-    draw_dailybar('2018.9.22 - 2018.6.1')
+    #draw_gantt('2018.9.1')
+    draw_dailybar('2018.9.24 - 2018.6.1')

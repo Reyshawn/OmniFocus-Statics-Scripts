@@ -1,7 +1,9 @@
 import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
-from datetime import datetime, timedelta
+import numpy as np
+from matplotlib import cm
+from datetime import timedelta
 from task import tasks
+
 
 
 def get_freq(days):
@@ -48,23 +50,31 @@ def draw_bar(days):
     res = [0]*(k[1])
     for i in range(1,len(k)-1):
         res += [data[k[i]]]*(k[i+1]-k[i])
-    
     res += [0]*(1440 - k[-1])
-    d = datetime(2018,1,1)
+
+    x = np.array(list(range(len(res))))
+    y = np.array(res)
 
     fig, ax = plt.subplots()
-    ax.plot(range(len(res)), res)
+    
+    colors = cm.YlGnBu(y / float(max(y)))
+    ax.bar(x, y,  width=1.0, color=colors)
     
     ticks = {}
-    for hour in range(24):
-        ticks[hour*60] = hour
-    
+    for hour in range(0,24,3):
+        ticks[hour*60] = '{}:00'.format(hour)
+    ticks[24*60] = '0:00'
 
     ax.set_xticks(list(ticks.keys()))
+    ax.set_xticks(list(range(0,24*60,60)), minor=True)
     ax.set_xticklabels(list(ticks.values()))
+
+    ax.grid(b=True, which='minor', axis='x', linestyle='dotted')
+
+    ax.set_xlim(6*60, 24*60)
     
     plt.show()
     
 
 if __name__ == '__main__':
-    draw_bar(30)
+    draw_bar(90)

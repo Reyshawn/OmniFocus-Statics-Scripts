@@ -1,16 +1,21 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import cm
-from datetime import timedelta
+from datetime import datetime, timedelta
 from task import tasks
 
 
 
-def get_freq(days):
+def get_freq(days, START=None):
     # accumulate total number of activities during each minute in past days
-    END = tasks[0].date - timedelta(days)
-    counter = {0:0}
     i = 0
+    if START:
+        START = datetime.strptime(START, '%Y.%m.%d').date()
+        while (tasks[i].date != START):
+            i += 1
+    END = tasks[i].date - timedelta(days)
+    counter = {0:0}
+    
     while (tasks[i].date != END):
         temp = {}
         for t in range(0,len(tasks[i].time), 2):
@@ -28,6 +33,8 @@ def count_merge(c, t):
     t_ = sorted(list(t.keys()))
     j = 0
     for i in range(0, len(t_), 2):
+        if c_[-1] < t_[i]:
+            return {**c, **t}
         while (c_[j] < t_[i] ):
             j += 1
         c[t_[i]] = c[c_[j-1]] + 1
@@ -44,8 +51,8 @@ def count_merge(c, t):
     return c
 
 
-def draw_bar(days):
-    data = get_freq(days)
+def draw_bar(days, START=None):
+    data = get_freq(days, START)
     k = sorted(list(data.keys()))
     res = [0]*(k[1])
     for i in range(1,len(k)-1):
@@ -77,4 +84,4 @@ def draw_bar(days):
     
 
 if __name__ == '__main__':
-    draw_bar(90)
+    draw_bar(14, '2018.9.28')

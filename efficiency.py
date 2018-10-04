@@ -84,4 +84,4 @@ def draw_bar(days, START=None):
     
 
 if __name__ == '__main__':
-    draw_bar(14, '2018.9.28')
+    draw_bar(14, '2018.10.3')

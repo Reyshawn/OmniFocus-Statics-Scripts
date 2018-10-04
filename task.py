@@ -22,7 +22,10 @@ class Task:
         res = []
         try:
             s = datetime.strptime(row[6][11:16], '%H:%M').time()
-            s = s.replace(hour=s.hour+8)
+            if (s.hour+8>24):
+                s = s.replace(hour=s.hour-16) # deal with the situation that the time exceeds 24 
+            else:
+                s = s.replace(hour=s.hour+8)
             res.append(s)
         except:
             if not self.duration:

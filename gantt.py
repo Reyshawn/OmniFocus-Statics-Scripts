@@ -16,7 +16,7 @@ CONTEXTS2COLOR = {'Draft': 'silver',
                   'Windows': 'orange',
                   'Safari': 'crimson', 
                   'Python': 'c', 'JavaScript': 'c', 'Java': 'c', 'C++': 'c', 
-                  'Chores':'gold','Errands':'gold','Finance':'gold','Email':'gold'}
+                  'Chores':'gold','Errands':'gold','Finance':'gold','Email':'gold', '':'gold'}
 
 def get_dailytasks(day, tasks=tasks):
     # choose a day to display the gantt chart of your activities in omnifocus
@@ -148,4 +148,4 @@ def draw_dailybar(range_days):
 
 if __name__ == '__main__':
     #draw_gantt('2018.9.1')
-    draw_dailybar('2018.9.24 - 2018.6.1')
+    draw_dailybar('2018.10.18 - 2018.8.1')

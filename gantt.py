@@ -10,13 +10,12 @@ font = FontProperties(fname='/System/Library/Fonts/Hiragino Sans GB.ttc')
 
 # define the global value
 MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-CONTEXTS2COLOR = {'Draft': 'silver', 
-                  'iOS': 'deeppink', 
-                  'Mac': 'orange', 
-                  'Windows': 'orange',
-                  'Safari': 'crimson', 
+CONTEXTS2COLOR = {'🖊': 'silver', 
+                  '📱': 'deeppink', 
+                  '💻': 'orange', 
+                  '🤔': 'crimson', 
                   'Python': 'c', 'JavaScript': 'c', 'Java': 'c', 'C++': 'c', 
-                  'Chores':'gold','Errands':'gold','Finance':'gold','Email':'gold', '':'gold'}
+                  'Chores':'gold','🚊':'gold','💰':'gold','✉️':'gold', '':'gold'}
 
 def get_dailytasks(day, tasks=tasks):
     # choose a day to display the gantt chart of your activities in omnifocus
@@ -125,7 +124,10 @@ def draw_dailybar(range_days):
         dict_gantt = get_dict(d, onedate=True)
         context = get_context(d)
         for i, title in enumerate(dict_gantt):
-            ax.broken_barh(dict_gantt[title], (k, 1), color=CONTEXTS2COLOR[context[title]])
+            try:
+                ax.broken_barh(dict_gantt[title], (k, 1), color=CONTEXTS2COLOR[context[title]])
+            except:
+                print('sss')
         k += 1
         d -= timedelta(days=1)
 
@@ -147,5 +149,5 @@ def draw_dailybar(range_days):
 
 
 if __name__ == '__main__':
-    #draw_gantt('2018.9.1')
-    draw_dailybar('2018.10.18 - 2018.8.1')
+    #draw_gantt('2018.11.20')
+    draw_dailybar('2018.11.20 - 2018.8.1')

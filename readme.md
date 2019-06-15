@@ -1,4 +1,4 @@
-# Omnifocus Statics
+# Omnifocus Visualization
 
 This project is used to visualize the data in the OmniFocus.
 
